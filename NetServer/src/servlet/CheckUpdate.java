@@ -68,16 +68,16 @@ public class CheckUpdate extends HttpServlet {
             "com.qiyi.video", "com.kugou.android", "com.mt.mtxx.mtxx",
             "com.tencent.mm", "com.taobao.taobao", "com.tencent.mobileqq"
     };
-    private static String[] mUrlArray = {
-            "http://www.lenovomm.com/appdown/21661264-2",
-            "http://www.lenovomm.com/appdown/21589548-2",
-            "http://www.lenovomm.com/appdown/21665086-2",
-            "http://www.lenovomm.com/appdown/21665350-2",
-            "http://www.lenovomm.com/appdown/21672339-2",
-            "http://www.lenovomm.com/appdown/21639509-2"
+    public static String[] mUrlArray = {
+            "https://3g.lenovomm.com/w3g/yydownload/com.qiyi.video/60020",
+            "https://3g.lenovomm.com/w3g/yydownload/com.kugou.android/60020",
+            "https://3g.lenovomm.com/w3g/yydownload/com.mt.mtxx.mtxx/60020",
+            "https://3g.lenovomm.com/w3g/yydownload/com.tencent.mm/60020",
+            "https://3g.lenovomm.com/w3g/yydownload/com.taobao.taobao/60020",
+            "https://3g.lenovomm.com/w3g/yydownload/com.tencent.mobileqq/60020"
     };
     private static String[] mVersionArray = {
-            "8.12.5", "8.9.2", "7.0.5.0", "6.6.1", "7.4.0", "7.3.2"
+            "10.2.0", "9.1.5", "8.4.3.0", "7.0.3", "8.5.10", "7.9.9"
     };
     
 	private String getJsonStr(String request_str) {
