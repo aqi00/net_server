@@ -59,7 +59,7 @@ public class CheckUpdate extends HttpServlet {
 	}
 
 	private String getJsonStr() {
-		String str = "{\"app_name\":\"爱奇艺\",\"package_name\":\"com.qiyi.video\",\"version_code\":80930,\"version_name\":\"8.8.5\",\"need_update\":true,\"download_url\":\"http://www.lenovomm.com/appdown/21404091-2\"}";
+		String str = "{\"app_name\":\"爱奇艺\",\"package_name\":\"com.qiyi.video\",\"version_code\":100200,\"version_name\":\"10.2.0\",\"need_update\":true,\"download_url\":\"https://3g.lenovomm.com/w3g/yydownload/com.qiyi.video/60020\"}";
 		return str;
 	}
 
