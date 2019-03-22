@@ -7,7 +7,7 @@
 <title>upload</title>
 </head>
 <body>
-<form action="http://192.168.0.212:8080/UploadTest/uploadServlet" method="post" enctype="multipart/form-data">
+<form action="http://localhost:8080/NetServer/uploadServlet" method="post" enctype="multipart/form-data">
 	<table>
 	<caption>上传实例</caption>
 		<tr>
