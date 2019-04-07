@@ -74,8 +74,9 @@ public class UploadServlet extends HttpServlet {
             			fileName = item.getName().substring(item.getName().lastIndexOf("\\"));
             		}
             		BufferedInputStream in = new BufferedInputStream(item.getInputStream());
-            		String rootPath=getClass().getResource("/").getFile().toString();
-            		String filePath = String.format("%s../../%s", rootPath, fileName);
+//            		String rootPath=getClass().getResource("/").getFile().toString();
+//            		String filePath = String.format("%s../../%s", rootPath, fileName);
+            		String filePath = String.format("D:/%s", fileName);
                     BufferedOutputStream out = new BufferedOutputStream(
                             new FileOutputStream(new File(filePath))); 
                     Streams.copy(in, out, true);

@@ -47,12 +47,13 @@ public class CheckUpdate extends HttpServlet {
 		}
 		System.out.println("request_str=" + request_str);
 
-		response.setContentType("text/plain");
-		response.setCharacterEncoding("utf-8");
 		PrintWriter out = response.getWriter();
 
 		String response_str = getJsonStr(request_str);
 		System.out.println("response_str=" + response_str);
+		response.setContentLength(response_str.length());
+		response.setContentType("text/plain");
+		response.setCharacterEncoding("utf-8");
 		try {
 			out.println(response_str);
 		} catch (Exception e) {
