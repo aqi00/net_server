@@ -45,13 +45,13 @@ public class QueryFriend extends HttpServlet {
 		String request_str = tempStr.toString();
 		System.out.println("request_str=" + request_str);
 
-		PrintWriter out = response.getWriter();
-
 		String response_str = getJsonStr();
 		System.out.println("response_str=" + response_str);
 		response.setContentLength(response_str.length());
 		response.setContentType("text/plain");
 		response.setCharacterEncoding("utf-8");
+		
+		PrintWriter out = response.getWriter();
 		try {
 			out.println(response_str);
 		} catch (Exception e) {
