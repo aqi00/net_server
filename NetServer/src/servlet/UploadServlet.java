@@ -74,13 +74,14 @@ public class UploadServlet extends HttpServlet {
             			fileName = item.getName().substring(item.getName().lastIndexOf("\\"));
             		}
             		BufferedInputStream in = new BufferedInputStream(item.getInputStream());
+            		String size = in.available()/1024 + "K";
 //            		String rootPath=getClass().getResource("/").getFile().toString();
 //            		String filePath = String.format("%s../../%s", rootPath, fileName);
             		String filePath = String.format("D:/%s", fileName);
                     BufferedOutputStream out = new BufferedOutputStream(
                             new FileOutputStream(new File(filePath))); 
                     Streams.copy(in, out, true);
-                    o.write("文件上传成功");
+                    o.write("文件上传成功，文件大小为" + size);
             		System.out.println("目标文件:" + filePath);
             	}
             }
