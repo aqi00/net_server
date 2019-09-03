@@ -23,19 +23,20 @@ public class TestServer {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static void main(String[] args) {
 		TestServer server = new TestServer();
 		server.initServer();
 	}
-	
+
 	private class ServerThread implements Runnable {
 		private Socket mSocket;
 		private BufferedReader mReader;
-		
+
 		public ServerThread(Socket socket) throws IOException {
 			mSocket = socket;
-			mReader = new BufferedReader(new InputStreamReader(mSocket.getInputStream()));
+			mReader = new BufferedReader(new InputStreamReader(
+					mSocket.getInputStream()));
 		}
 
 		@Override
@@ -44,17 +45,17 @@ public class TestServer {
 				String content = null;
 				// 循环不断地从Socket中读取客户端发送过来的数据
 				while ((content = mReader.readLine()) != null) {
-					System.out.println("收到客户端消息："+content);
+					System.out.println("收到客户端消息：" + content);
 					PrintStream ps = new PrintStream(mSocket.getOutputStream());
 					String resp = "hi，很高兴认识你";
-					System.out.println("服务端返回消息："+resp);
+					System.out.println("服务端返回消息：" + resp);
 					ps.println(resp);
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
-		
+
 	}
-	
+
 }

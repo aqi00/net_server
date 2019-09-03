@@ -50,7 +50,7 @@ public class QueryFriend extends HttpServlet {
 		response.setContentLength(response_str.length());
 		response.setContentType("text/plain");
 		response.setCharacterEncoding("utf-8");
-		
+
 		PrintWriter out = response.getWriter();
 		try {
 			out.println(response_str);
@@ -63,16 +63,12 @@ public class QueryFriend extends HttpServlet {
 		out.close();
 	}
 
-	private String[] mGroupArray = {
-			"亲戚", "朋友", "同学", "同事", "客户"
-	};
-	
-	private String[] mNameArray = {
-			"小明", "小红", "小军", "小丽", "小白", "小燕", "小武", "小玉", "小强", "小月", 
-			"大伟", "大宝", "大文", "大壮", "大华", "大黑", "大牛", "大麦", "大田", "大雁", 
-			"阿姐", "阿哥", "阿绣", "阿欢", "阿磊", "阿南", "阿毛", "阿英", "阿杜", "阿紫", 
-			"老张", "老王", "老赵", "老李", "老刘", "老陈", "老郑", "老林", "老吴", "老马", 
-	};
+	private String[] mGroupArray = { "亲戚", "朋友", "同学", "同事", "客户" };
+
+	private String[] mNameArray = { "小明", "小红", "小军", "小丽", "小白", "小燕", "小武",
+			"小玉", "小强", "小月", "大伟", "大宝", "大文", "大壮", "大华", "大黑", "大牛", "大麦",
+			"大田", "大雁", "阿姐", "阿哥", "阿绣", "阿欢", "阿磊", "阿南", "阿毛", "阿英", "阿杜",
+			"阿紫", "老张", "老王", "老赵", "老李", "老刘", "老陈", "老郑", "老林", "老吴", "老马", };
 
 	private String getJsonStr() {
 		String str = "";
@@ -80,7 +76,7 @@ public class QueryFriend extends HttpServlet {
 		try {
 			obj.put("title", "好友列表");
 			JSONArray array = new JSONArray();
-			for (int i=0; i<mGroupArray.length; i++) {
+			for (int i = 0; i < mGroupArray.length; i++) {
 				JSONObject item = new JSONObject();
 				item.put("title", mGroupArray[i]);
 				item.put("friend_list", getFriendList());
@@ -96,13 +92,13 @@ public class QueryFriend extends HttpServlet {
 
 	private JSONArray getFriendList() {
 		JSONArray array = new JSONArray();
-		int count = (int) (Math.random()*100%8 + 5);
-		for (int i=0; i<count; i++) {
+		int count = (int) (Math.random() * 100 % 8 + 5);
+		for (int i = 0; i < count; i++) {
 			JSONObject item = new JSONObject();
-			item.put("nick_name", mNameArray[(int) (Math.random()*500%40)]);
+			item.put("nick_name", mNameArray[(int) (Math.random() * 500 % 40)]);
 			array.add(item);
 		}
 		return array;
 	}
-	
+
 }
