@@ -77,14 +77,11 @@ public class UploadServlet extends HttpServlet {
 						fileName = item.getName().substring(
 								item.getName().lastIndexOf("\\"));
 					}
-					BufferedInputStream in = new BufferedInputStream(
-							item.getInputStream());
+					BufferedInputStream in = new BufferedInputStream(item.getInputStream());
 					String size = in.available() / 1024 + "K";
-					// String
-					// rootPath=getClass().getResource("/").getFile().toString();
-					// String filePath = String.format("%s../../%s", rootPath,
-					// fileName);
-					String filePath = String.format("D:/%s", fileName);
+					String rootPath=getClass().getResource("/").getFile().toString();
+					String filePath = String.format("%s%s", rootPath.substring(0, rootPath.lastIndexOf("WEB-INF")), fileName);
+            		filePath = filePath.replace("file:/", "");
 					BufferedOutputStream out = new BufferedOutputStream(
 							new FileOutputStream(new File(filePath)));
 					Streams.copy(in, out, true);
