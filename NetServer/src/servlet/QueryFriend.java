@@ -47,7 +47,7 @@ public class QueryFriend extends HttpServlet {
 
 		String response_str = getJsonStr();
 		System.out.println("response_str=" + response_str);
-		response.setContentLength(response_str.length());
+		response.setContentLength(response_str.getBytes().length);
 		response.setContentType("text/plain");
 		response.setCharacterEncoding("utf-8");
 
