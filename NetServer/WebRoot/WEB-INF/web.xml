@@ -22,6 +22,12 @@
     <servlet-name>QueryFriend</servlet-name>
     <servlet-class>servlet.QueryFriend</servlet-class>
   </servlet>
+  <servlet>
+    <description></description>
+    <display-name>GetPhoto</display-name>
+    <servlet-name>GetPhoto</servlet-name>
+    <servlet-class>servlet.GetPhoto</servlet-class>
+  </servlet>
   <servlet-mapping>
     <servlet-name>UploadServlet</servlet-name>
     <url-pattern>/uploadServlet</url-pattern>
@@ -33,5 +39,9 @@
   <servlet-mapping>
     <servlet-name>CheckUpdate</servlet-name>
     <url-pattern>/checkUpdate</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>GetPhoto</servlet-name>
+    <url-pattern>/getPhoto</url-pattern>
   </servlet-mapping>
 </web-app>
