@@ -7,7 +7,7 @@
 <title>用户注册演示页面</title>
 </head>
 <body>
-<form action="http://localhost:8080/HttpServer/Register" method="post" enctype="multipart/form-data">
+<form action="http://localhost:8080/HttpServer/register" method="post" enctype="multipart/form-data">
 	<table>
 	<caption>请输入注册信息</caption>
 		<tr>
