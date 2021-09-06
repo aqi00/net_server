@@ -74,8 +74,13 @@ public class Register extends HttpServlet {
 						fileName = fileName.substring(fileName.lastIndexOf("\\"));
 					}
 					fileName = fileName.replace("%", "");
-					String rootPath = getClass().getResource("/").getFile().toString();
-					String filePath = String.format("%s%s", rootPath.substring(0, rootPath.lastIndexOf("WEB-INF")), fileName);
+					String rootPath = getClass().getResource("/").getFile();
+					rootPath = rootPath.replace("WEB-INF/classes/", "");
+					if (rootPath.contains("build/classes/")) {
+						rootPath = rootPath.replace("build/classes/", "")+"WebRoot/";
+					}
+					System.out.println("rootPath：" + rootPath);
+					String filePath = String.format("%s%s", rootPath, fileName);
             		filePath = filePath.replace("file:/", "");
             		try (InputStream is = item.getInputStream();
             				FileOutputStream fos = new FileOutputStream(new File(filePath))) {

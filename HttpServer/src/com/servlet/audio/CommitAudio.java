@@ -111,8 +111,13 @@ public class CommitAudio extends HttpServlet {
 			fileName = fileName.substring(fileName.lastIndexOf("\\"));
 		}
 		String relativePath = prefix.concat(fileName).replace("%", "").replace("//", "/");
-		String rootPath = getClass().getResource("/").getFile().toString();
-		String filePath = String.format("%s%s", rootPath.substring(0, rootPath.lastIndexOf("WEB-INF")), relativePath);
+		String rootPath = getClass().getResource("/").getFile();
+		rootPath = rootPath.replace("WEB-INF/classes/", "");
+		if (rootPath.contains("build/classes/")) {
+			rootPath = rootPath.replace("build/classes/", "")+"WebRoot/";
+		}
+		System.out.println("rootPath：" + rootPath);
+		String filePath = String.format("%s%s", rootPath, relativePath);
 		File localFile = new File(filePath);
 		if (!localFile.getParentFile().exists()) { // 如果文件的目录不存在
 			localFile.getParentFile().mkdirs(); // 创建目录
