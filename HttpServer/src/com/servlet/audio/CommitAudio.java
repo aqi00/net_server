@@ -1,22 +1,18 @@
 package com.servlet.audio;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.Writer;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.servlet.util.FileUtil;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.apache.commons.fileupload.util.Streams;
 
 import com.alibaba.fastjson.JSONObject;
 import com.servlet.util.DbUtil;
@@ -32,7 +28,7 @@ public class CommitAudio extends HttpServlet {
 
 	@SuppressWarnings("unchecked")
 	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+			HttpServletResponse response) throws IOException {
 		System.out.println("request.getContentType()=" + request.getContentType());
 		CommitResponse commitResponse = new CommitResponse();
 
@@ -59,10 +55,10 @@ public class CommitAudio extends HttpServlet {
 			AudioInfo audio = new AudioInfo();
 			Iterator<FileItem> iter = itemList == null ? null : itemList.iterator();
 			while (iter != null && iter.hasNext()) {
-				FileItem item = (FileItem) iter.next();
+				FileItem item = iter.next();
 				if (item.isFormField()) { // 如果传过来的是普通的表单域
 					String fieldName = item.getFieldName();
-					String fieldValue = new String(item.getString("UTF-8"));
+					String fieldValue = item.getString("UTF-8");
 					if ("artist".equals(fieldName)) {
 						audio.setArtist(fieldValue);
 					} else if ("title".equals(fieldName)) {
@@ -77,10 +73,10 @@ public class CommitAudio extends HttpServlet {
 				} else { // 文件域
 					System.out.println("源文件：" + item.getName()+", 内容类型："+item.getContentType());
 					if (item.getContentType().startsWith("image")) {
-						String filePath = saveFile(item, "story/");
+						String filePath = FileUtil.saveFile(item, "story/");
 	            		audio.setCover(filePath);
 					} else if (item.getContentType().startsWith("audio")) {
-						String filePath = saveFile(item, "story/");
+						String filePath = FileUtil.saveFile(item, "story/");
 	            		audio.setAudio(filePath);
 					}
 				}
@@ -103,34 +99,6 @@ public class CommitAudio extends HttpServlet {
 		out.write(respStr);
 		out.flush();
 		out.close();
-	}
-	
-	private String saveFile(FileItem item, String prefix) {
-		String fileName = item.getName();
-		if (fileName.contains("\\")) {
-			fileName = fileName.substring(fileName.lastIndexOf("\\"));
-		}
-		String relativePath = prefix.concat(fileName).replace("%", "").replace("//", "/");
-		String rootPath = getClass().getResource("/").getFile();
-		rootPath = rootPath.replace("WEB-INF/classes/", "");
-		if (rootPath.contains("build/classes/")) {
-			rootPath = rootPath.replace("build/classes/", "")+"WebRoot/";
-		}
-		System.out.println("rootPath：" + rootPath);
-		String filePath = String.format("%s%s", rootPath, relativePath);
-		File localFile = new File(filePath);
-		if (!localFile.getParentFile().exists()) { // 如果文件的目录不存在
-			localFile.getParentFile().mkdirs(); // 创建目录
-		}
-		filePath = filePath.replace("file:/", "");
-		try (InputStream is = item.getInputStream();
-				FileOutputStream fos = new FileOutputStream(new File(filePath))) {
-			Streams.copy(is, fos, true);
-			System.out.println("目标文件：" + filePath);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return relativePath;
 	}
 
 }

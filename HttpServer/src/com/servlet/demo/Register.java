@@ -8,7 +8,6 @@ import java.io.Writer;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,13 +25,13 @@ public class Register extends HttpServlet {
 	}
 
 	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+			HttpServletResponse response) throws IOException {
 		this.doPost(request, response);
 	}
 
 	@SuppressWarnings("unchecked")
 	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+			HttpServletResponse response) throws IOException {
 		System.out.println("request.getContentType()=" + request.getContentType());
 		String respStr = "您的注册信息如下：";
 
@@ -61,10 +60,10 @@ public class Register extends HttpServlet {
 
 			Iterator<FileItem> iter = itemList == null ? null : itemList.iterator();
 			while (iter != null && iter.hasNext()) {
-				FileItem item = (FileItem) iter.next();
+				FileItem item = iter.next();
 				if (item.isFormField()) { // 如果传过来的是普通的表单域
 					String fieldName = item.getFieldName();
-					String fieldValue = new String(item.getString("UTF-8"));
+					String fieldValue = item.getString("UTF-8");
 					respStr = String.format("%s字段%s的值为%s，", respStr, fieldName, fieldValue);
 					System.out.print("普通的表单域："+fieldName+"="+fieldValue);
 				} else { // 文件域

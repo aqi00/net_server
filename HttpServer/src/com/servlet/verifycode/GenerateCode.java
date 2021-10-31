@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 import javax.imageio.ImageIO;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,15 +22,14 @@ public class GenerateCode extends HttpServlet {
 		super();
 	}
 
-	public void init() throws ServletException {
+	public void init() {
 	}
 
 	public void destroy() {
 		super.destroy();
 	}
 
-	public void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	public void doGet(HttpServletRequest request, HttpServletResponse response) {
 		String char_type = request.getParameter("char_type");
 		String disturber_type = request.getParameter("disturber_type");
 		CodeView codeView = new CodeView(); // 创建一个验证码视图
