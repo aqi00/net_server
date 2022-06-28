@@ -9,19 +9,23 @@ import java.io.InputStream;
 
 public class FileUtil {
 
-    public static String saveFile(FileItem item, String prefix) {
-        String fileName = item.getName();
-        if (fileName.contains("\\")) {
-            fileName = fileName.substring(fileName.lastIndexOf("\\"));
-        }
-        String relativePath = prefix.concat(fileName).replace("%", "").replace("//", "/");
+    public static String getRootPath() {
         String rootPath = FileUtil.class.getResource("/").getFile();
         rootPath = rootPath.replace("WEB-INF/classes/", "");
         if (rootPath.contains("build/classes/")) {
             rootPath = rootPath.replace("build/classes/", "")+"WebRoot/";
         }
         System.out.println("rootPath：" + rootPath);
-        String filePath = String.format("%s%s", rootPath, relativePath);
+        return rootPath;
+    }
+
+    public static String saveFile(FileItem item, String prefix) {
+        String fileName = item.getName();
+        if (fileName.contains("\\")) {
+            fileName = fileName.substring(fileName.lastIndexOf("\\"));
+        }
+        String relativePath = prefix.concat(fileName).replace("%", "").replace("//", "/");
+        String filePath = String.format("%s%s", getRootPath(), relativePath);
         File localFile = new File(filePath);
         if (!localFile.getParentFile().exists()) { // 如果文件的目录不存在
             localFile.getParentFile().mkdirs(); // 创建目录

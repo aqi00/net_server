@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
   <display-name>HttpServer</display-name>
   <welcome-file-list>
     <welcome-file>register.jsp</welcome-file>
@@ -58,6 +58,24 @@
     <servlet-name>GenerateCode</servlet-name>
     <servlet-class>com.servlet.verifycode.GenerateCode</servlet-class>
   </servlet>
+  <servlet>
+    <description></description>
+    <display-name>ParseDoc</display-name>
+    <servlet-name>ParseDoc</servlet-name>
+    <servlet-class>com.servlet.office.ParseDoc</servlet-class>
+  </servlet>
+  <servlet>
+    <description></description>
+    <display-name>ParsePpt</display-name>
+    <servlet-name>ParsePpt</servlet-name>
+    <servlet-class>com.servlet.office.ParsePpt</servlet-class>
+  </servlet>
+  <servlet>
+    <description></description>
+    <display-name>ParseXls</display-name>
+    <servlet-name>ParseXls</servlet-name>
+    <servlet-class>com.servlet.office.ParseXls</servlet-class>
+  </servlet>
   <servlet-mapping>
     <servlet-name>Login</servlet-name>
     <url-pattern>/login</url-pattern>
@@ -93,5 +111,17 @@
   <servlet-mapping>
     <servlet-name>GenerateCode</servlet-name>
     <url-pattern>/generateCode</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ParseDoc</servlet-name>
+    <url-pattern>/parseDoc</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ParseXls</servlet-name>
+    <url-pattern>/parseXls</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ParsePpt</servlet-name>
+    <url-pattern>/parsePpt</url-pattern>
   </servlet-mapping>
 </web-app>
