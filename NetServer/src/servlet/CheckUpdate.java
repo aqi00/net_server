@@ -74,14 +74,14 @@ public class CheckUpdate extends HttpServlet {
 			"com.kugou.android", "com.mt.mtxx.mtxx", "com.tencent.mm",
 			"com.taobao.taobao", "com.tencent.mobileqq" };
 	public static String[] mUrlArray = {
-			"https://3g.lenovomm.com/w3g/yydownload/com.qiyi.video/60020",
-			"https://3g.lenovomm.com/w3g/yydownload/com.kugou.android/60020",
-			"https://3g.lenovomm.com/w3g/yydownload/com.mt.mtxx.mtxx/60020",
-			"https://3g.lenovomm.com/w3g/yydownload/com.tencent.mm/60020",
-			"https://3g.lenovomm.com/w3g/yydownload/com.taobao.taobao/60020",
-			"https://3g.lenovomm.com/w3g/yydownload/com.tencent.mobileqq/60020" };
-	private static String[] mVersionArray = { "10.2.0", "9.1.5", "8.4.3.0",
-			"7.0.3", "8.5.10", "7.9.9" };
+			"https://imtt.dd.qq.com/sjy.10001/sjy.00004/16891/apk/F1E6E8850F6F80BD071AE8E319C51759.apk",
+			"https://imtt.dd.qq.com/sjy.10001/sjy.00004/16891/apk/52C4F042C7AC91FE1D97EE8699E0191C.apk",
+			"https://imtt.dd.qq.com/sjy.10001/sjy.00004/16891/apk/FAE5E860689E67BAEE7038261614B64E.apk",
+			"https://imtt.dd.qq.com/sjy.10001/sjy.00004/16891/apk/5F93793C6C5F539487B11418A5D4C902.apk",
+			"https://imtt.dd.qq.com/sjy.10001/sjy.00004/16891/apk/99CA4F060773B985797B9EFA0DA0A632.apk",
+			"https://imtt.dd.qq.com/sjy.10001/sjy.00004/16891/apk/995F74DF2D12C2325158455865E4CC4C.apk" };
+	private static String[] mVersionArray = { "13.7.5", "11.2.6", "9.6.2.0",
+			"8.0.25", "10.15.0", "8.9.3" };
 
 	private String getJsonStr(String request_str) {
 		JSONObject response_obj = new JSONObject();
