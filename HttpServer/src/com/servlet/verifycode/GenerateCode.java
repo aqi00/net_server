@@ -12,9 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.servlet.verifycode.widget.CodeView;
-import com.sun.image.codec.jpeg.JPEGCodec;
-import com.sun.image.codec.jpeg.JPEGImageDecoder;
-import com.sun.image.codec.jpeg.JPEGImageEncoder;
+//import com.sun.image.codec.jpeg.JPEGCodec;
+//import com.sun.image.codec.jpeg.JPEGImageDecoder;
+//import com.sun.image.codec.jpeg.JPEGImageEncoder;
 
 public class GenerateCode extends HttpServlet {
 
@@ -75,10 +75,12 @@ public class GenerateCode extends HttpServlet {
             } else {
                 response.setContentType("image/jpeg; charset=UTF-8");
                 try (FileInputStream fis = new FileInputStream(imagePath)) {
-                	JPEGImageDecoder decoder = JPEGCodec.createJPEGDecoder(fis);
-                	BufferedImage image = decoder.decodeAsBufferedImage();
-                	JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(os);
-                	encoder.encode(image);
+//                	JPEGImageDecoder decoder = JPEGCodec.createJPEGDecoder(fis);
+//                	BufferedImage image = decoder.decodeAsBufferedImage();
+//                	JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(os);
+//                	encoder.encode(image);
+					BufferedImage buffer = ImageIO.read(fis);
+					ImageIO.write(buffer, "jpeg", os);
         		} catch (Exception e) {
         			e.printStackTrace();
         		}
@@ -90,9 +92,13 @@ public class GenerateCode extends HttpServlet {
     }
     
     public String getFilePath() {
-		String rootPath = getClass().getResource("/").getFile().toString();
-		String filePath = rootPath.substring(0, rootPath.lastIndexOf("WEB-INF"));
-		filePath = filePath.replace("file:/", "");
+		String rootPath = getClass().getResource("/").getFile();
+		rootPath = rootPath.replace("WEB-INF/classes/", "");
+		if (rootPath.contains("build/classes/")) {
+			rootPath = rootPath.replace("build/classes/", "")+"WebRoot/";
+		}
+		System.out.println("rootPath：" + rootPath);
+		String filePath = rootPath.replace("file:/", "");
 		System.out.println("filePath="+filePath);
 		return filePath;
     }
