@@ -30,11 +30,20 @@ public class SocketServer {
             System.out.println(client.getSessionId().toString()+"发送文本消息："+message);
             client.sendEvent("receive_text", "不开不开我不开，妈妈没回来谁来也不开。");
         });
-        // 添加图像发送的事件监听器
+        // 添加图像发送的事件监听器（Android专用）
         server.addEventListener("send_image", JSONObject.class, (client, json, ackSender) -> {
+            System.out.println(client.getSessionId().toString()+"发送图片消息："+json.size());
             String desc = String.format("%s，序号为%d", json.getString("name"), json.getIntValue("seq"));
-            System.out.println(client.getSessionId().toString()+"发送图片消息："+desc);
+            System.out.println(client.getSessionId().toString()+"接收图片消息："+desc);
             client.sendEvent("receive_image", json);
+        });
+        // 添加图像发送的事件监听器（鸿蒙专用）
+        server.addEventListener("send_pic", String.class, (client, content, ackSender) -> {
+            System.out.println(client.getSessionId().toString()+"发送图像消息："+content);
+            JSONObject json = JSONObject.parseObject(content);
+            String desc = String.format("%s，序号为%d", json.getString("name"), json.getIntValue("seq"));
+            System.out.println(client.getSessionId().toString()+"接收图像消息："+desc);
+            client.sendEvent("receive_pic", content);
         });
 
         server.start(); // 启动Socket服务

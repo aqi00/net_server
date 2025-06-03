@@ -65,7 +65,7 @@ public class Register extends HttpServlet {
 					String fieldName = item.getFieldName();
 					String fieldValue = item.getString("UTF-8");
 					respStr = String.format("%s字段%s的值为%s，", respStr, fieldName, fieldValue);
-					System.out.print("普通的表单域："+fieldName+"="+fieldValue);
+					System.out.println("普通的表单域："+fieldName+"="+fieldValue);
 				} else { // 文件域
 					System.out.println("源文件：" + item.getName());
 					String fileName = item.getName();

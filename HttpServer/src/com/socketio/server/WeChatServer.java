@@ -15,6 +15,7 @@ import com.socketio.bean.ImageMessage;
 import com.socketio.bean.JoinInfo;
 import com.socketio.bean.MessageInfo;
 
+// 仿微信聊天服务端（Android专用）
 public class WeChatServer {
 
     // 客户端映射

@@ -34,7 +34,11 @@
 				<input type="submit" value="提交">
 			</td>
 		</tr>
-	</table>
+	</table
+	<br><br><br>
+	<a href='./socketio/index.html'>去测试SocketIO</a>（需要先启动SocketServer）
+	<br><br><br>
+	<a href='./websocket_client.jsp'>去测试WebSocket</a>
 </form>
 </body>
 </html>

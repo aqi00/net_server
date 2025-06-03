@@ -1,0 +1,173 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>SocketIO Client</title>
+    <base>
+    <script src="./jquery.min.js"></script>
+    <script src="./socket.io.js"></script>
+    <style>
+        body {
+            padding: 20px;
+        }
+        #console {
+            height: 450px;
+            overflow: auto;
+        }
+        .connect-msg {
+            color: green;
+        }
+        .disconnect-msg {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+
+<div style="width: 700px; float: left">
+    <h3>Socket Client 连接</h3>
+    <div style="border: 1px;">
+        <label>socketio服务器地址：</label>
+        <input type="text" id="url" value="http://127.0.0.1:9010" style="width: 500px;">
+        <br>
+        <br>
+        <button id="connect" style="width: 100px;">建立连接</button>
+        <button id="disconnect" style="width: 100px;">断开连接</button>
+    </div>
+
+    <hr style="height:1px;border:none;border-top:1px solid black;" />
+
+    <h3>Socket Client发送消息</h3>
+    <div style="border: 1px;">
+        <label>消息内容：　</label><input type="text" id="socketEvent" value="小兔子乖乖，把门儿开开" style="width: 500px;">
+        <br><br>
+        <button id="send" style="width: 100px;">发送消息</button>
+
+    </div>
+
+    <hr style="height:1px;border:none;border-top:1px solid black;" />
+
+</div>
+<div style="float: left;margin-left: 50px;">
+    <h3>SocketIO 连接情况</h3>
+    <div id="console" class="well"></div>
+</div>
+</body>
+<script type="text/javascript">
+    var socket ;
+    var errorCount = 0;
+    var isConnected = false;
+    var maxError = 5;
+
+    //连接
+    function connect(url) {
+        // 建立socket连接
+        socket = io.connect(url);
+        //socket.nsp = "/socketIO";//定义命名空间
+        console.log(socket)
+
+        //监听本次连接回调函数
+        socket.on('connect', function () {
+            isConnected =true;
+            console.log("连接成功");
+            serverOutput('<span class="connect-msg"><font color="blue">'+getNowTime()+'&nbsp;</font>连接成功</span>');
+            errorCount=0;
+        });
+
+        //监听断开
+        socket.on('disconnect', function () {
+            isConnected =false;
+            console.log("连接断开");
+            serverOutput('<span class="disconnect-msg"><font color="blue">'+getNowTime()+'&nbsp;</font>' + '已下线! </span>');
+        });
+
+        //监听断开错误
+        socket.on('connect_error', function(data){
+            serverOutput('<span class="disconnect-msg"><font color="blue">'+getNowTime()+'&nbsp;</font>;' + '连接错误-'+data+' </span>');
+            errorCount++;
+            if(errorCount>=maxError){
+                socket.disconnect();
+            }
+        });
+        //监听连接超时
+        socket.on('connect_timeout', function(data){
+            serverOutput('<span class="disconnect-msg"><font color="blue">'+getNowTime()+'&nbsp;</font>' + '连接超时-'+data+' </span>');
+            errorCount++;
+            if(errorCount>=maxError){
+                socket.disconnect();
+            }
+        });
+        //监听错误
+        socket.on('error', function(data){
+            serverOutput('<span class="disconnect-msg"><font color="blue">'+getNowTime()+'&nbsp;</font>' + '系统错误-'+data+' </span>');
+            errorCount++;
+            if(errorCount>=maxError){
+                socket.disconnect();
+            }
+        });
+        socket.on('receive_text', function(data){
+            serverOutput('<span class="disconnect-msg"><font color="blue">'+getNowTime()+'&nbsp;</font>' + '收到消息-'+data+' </span>');
+            errorCount++;
+            if(errorCount>=maxError){
+                socket.disconnect();
+            }
+        });
+    }
+
+    function output(message) {
+        var element = $("<div>" + " " + message + "</div>");
+        $('#console').prepend(element);
+    }
+
+    function serverOutput(message) {
+        var element = $("<div>" + message + "</div>");
+        $('#console').prepend(element);
+    }
+
+    //连接
+    $("#connect").click(function(){
+        if(!isConnected){
+            var url =  $("#url").val();
+            connect(url);
+        }else {
+            serverOutput('<span class="disconnect-msg"><font color="blue">'+getNowTime()+'&nbsp;</font>' + '已经成功建立连接，不要重复建立！！！ </span>');
+        }
+    })
+
+
+    //断开连接
+    $("#disconnect").click(function(){
+        if(isConnected){
+            socket.disconnect();
+        }
+    })
+
+
+    //发送消息
+    $("#send").click(function(){
+        //自定义的事件名称
+        var msg =  $("#socketEvent").val();
+        serverOutput('<span class="disconnect-msg"><font color="blue">'+getNowTime()+'&nbsp;</font>' + '发送消息-'+msg+' </span>');
+        //发送的内容
+        socket.emit('send_text',msg,function(data1,data2){
+            console.log("ack1:"+data1);
+            console.log("ack2:"+data2);
+        });
+    })
+
+
+    function getNowTime(){
+        var date=new Date();
+        var year=date.getFullYear(); //获取当前年份
+        var mon=date.getMonth()+1; //获取当前月份
+        var da=date.getDate(); //获取当前日
+        var h=date.getHours(); //获取小时
+        var m=date.getMinutes(); //获取分钟
+        var s=date.getSeconds(); //获取秒
+        var ms=date.getMilliseconds();
+        var d=document.getElementById('Date');
+        var date =year+'/'+mon+'/'+da+' '+h+':'+m+':'+s+':'+ms;
+        return date;
+    }
+</script>
+</html>
