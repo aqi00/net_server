@@ -218,7 +218,7 @@ public class WeLinkServer {
         });
 
         server.start(); // 启动Socket服务
-
+        System.out.println("已启动WeLinkServer");
     }
 
 }
